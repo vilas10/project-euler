@@ -399,10 +399,10 @@ def euler19():
     print(sun)
 
 
-def euler20():
+def euler20(num):
     fact = [1]
 
-    for n in range(1, 101):
+    for n in range(1, num+1):
         f = []
         c = 0
         for m in reversed(fact):
@@ -454,3 +454,15 @@ def euler21(n: int):
     print("amicable numbers sum: ", sum(amicables))
 
     return amicable_sum
+
+
+def euler30(power):
+    powers = [n ** power for n in range(10)]
+    result = 0
+    for n in range(2, 1000000):
+        total = sum(powers[int(c)] for c in str(n))
+        if total == n:
+            print('digit fifth power sum', n)
+            result += n
+
+    return result
