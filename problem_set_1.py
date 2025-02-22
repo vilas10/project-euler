@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 def euler48(n: int, m: int):
     # n = 1000, m = 10000000000
     # Using modulo principles:
@@ -466,3 +469,41 @@ def euler30(power):
             result += n
 
     return result
+
+
+def euler29(a, b):
+    powers = set()
+    primes = primes_below(a)
+    print(primes)
+
+    def factorization(num):
+        factors = defaultdict(int)
+
+        for p in primes:
+            while num > 1 and num % p == 0:
+                factors[p] += 1
+                num //= p
+
+            if num == 1:
+                return factors
+
+    def indices_key(factors):
+        keys = [0] * len(primes)
+
+        for p, idx in factors.items():
+            keys[primes.index(p)] = idx
+
+        return keys
+
+    for base in range(2, a+1):
+        indices = indices_key(factorization(base))
+
+        for power in range(2, b+1):
+            index_key = [power * i for i in indices]
+            powers.add(tuple(index_key))
+
+    # print(powers)
+    return len(powers)
+
+
+
